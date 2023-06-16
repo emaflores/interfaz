@@ -1,0 +1,112 @@
+nav {
+    margin-bottom: 30px;
+}
+
+nav ul li a {
+    height: 100%;
+}
+
+.mydiv {
+    font-family: 'SF Pro Text', Arial, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    /* margin-top: 50px; */
+}
+
+#tomate-cantidad, #limon-cantidad {
+    width: 50%;
+}
+
+.table {
+    font-size: medium;
+}
+
+#hello,
+#message {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 2em;
+    margin-right: 2em;
+    padding: 10px;
+
+    border: 1px solid #000;
+    border-radius: 8px;
+}
+
+#message {
+    opacity: 0;
+    display: none;
+}
+
+#container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rectangle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 688px;
+    border: 1px solid #000;
+    border-radius: 8px;
+}
+
+.rectangle-name {
+    flex-grow: 1;
+    /* Permite que el nombre de la receta ocupe el espacio disponible */
+    margin-right: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.rectangle-status {
+    flex-grow: 1;
+    /* Permite que el estado ocupe el espacio disponible */
+    margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.rectangle-time {
+    flex-grow: 0;
+    /* Evita que el tiempo ocupe más espacio del necesario */
+    font-style: italic;
+    white-space: nowrap;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.rectangle-name:hover,
+.rectangle-status:hover,
+.rectangle-time:hover {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+
+
+.rectangle-button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de pedidos</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="mydiv">
+    <nav>
+      <ul class="nav nav-tabs nav-fill justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="historial pedidos.html">Historial Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="bodega.html">Bodega</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Historial Compras</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="recetas.html">Recetas</a>
+        </li>
+      </ul>
+    </nav>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Fecha</th>
+          <th scope="col">Ingrediente</th>
+          <th scope="col">Cantidad</th>
+        </tr>
+      </thead>
+      <tbody id="dataBody">
+        <!-- datos -->
+      </tbody>
+    </table>
+
+  </div>
+  <script src="index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <script>
+    // Formatear la fecha
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const formattedDate = date.toISOString().split('T')[0];
+      const formattedTime = date.toTimeString().split(' ')[0].substring(0, 5);
+      return formattedDate + ' ' + formattedTime;
+    }
+
+    // Diccionario de traducción
+    const translationDict = {
+      tomato: 'tomate',
+      lemon: 'limon',
+      potato: 'papa',
+      rice: 'arroz',
+      ketchup: 'salsa de tomate',
+      lettuce: 'lechuga',
+      onion: 'cebolla',
+      cheese: 'queso',
+      meat: 'carne',
+      chicken: 'pollo'
+    };
+
+    // Realizar la solicitud a la API externa y traducir los ingredientes
+    fetch('http://147.182.250.46/api/purchase-history')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.getElementById('dataBody');
+        // Recorrer los datos y crear las filas
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          // Crear las celdas de fecha, ingrediente y cantidad
+          const dateCell = document.createElement('td');
+          dateCell.textContent = formatDate(item.created_at);
+          const ingredientCell = document.createElement('td');
+          const translatedIngredient = translationDict[item.food_name.toLowerCase()] || item.food_name;
+          ingredientCell.textContent = translatedIngredient;
+          const quantityCell = document.createElement('td');
+          quantityCell.textContent = item.quantity;
+          // Agregar las celdas a la fila
+          row.appendChild(dateCell);
+          row.appendChild(ingredientCell);
+          row.appendChild(quantityCell);
+          // Agregar la fila al cuerpo de la tabla
+          tbody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+</body>
+
+</html>
